@@ -15,7 +15,10 @@ A lightweight yet powerful typeahead component for react.js. Key features includ
 Check out a Demo here: http://185.82.21.82:3350/
 
 ## Install
-Install with npm: `npm install reactahead`</br></br>
+Install with npm: `npm install reactahead`</br>
+Then include in your react app
+`import Reactahead from reactahead;`
+</br></br>
 If you want to use the code as base for your own typeahead component, feel free to take copy the code from /src/lib/component/Reactahead.js & Reactahead.scss into your own react app. Happy coding :)
 
 ## Dependencies
