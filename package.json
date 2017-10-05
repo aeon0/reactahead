@@ -1,7 +1,8 @@
 {
-  "name": "create-react-library",
-  "version": "1.0.0",
-  "description": "React NPM library starter kit based on Facebook's create react app",
+  "name": "reactahead",
+  "version": "0.1.0",
+  "description": "Lightweight and powerful typahead component for react.js",
+  "keywords": ["typeahead", "autocomplete", "autotype", "react.js", "component"],
   "main": "build/index.js",
   "scripts": {
     "start": "node scripts/start.js",
@@ -10,13 +11,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/udiliaInc/create-react-library.git"
+    "url": "git+https://github.com/j-o-d-o/reactahead"
   },
-  "author": "Dimitri Mikadze <dimitri@udilia.com>",
+  "author": "Johannes Dobler <johannes_dob@web.de>",
   "bugs": {
-    "url": "https://github.com/udiliaInc/create-react-library/issues"
+    "url": "https://github.com/j-o-d-o/reactahead/issues"
   },
-  "homepage": "https://github.com/udiliaInc/create-react-library#readme",
+  "homepage": "https://github.com/j-o-d-o/reactahead#readme",
   "license": "MIT",
   "devDependencies": {
     "autoprefixer": "7.1.2",
