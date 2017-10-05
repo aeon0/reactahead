@@ -4,11 +4,11 @@
 [![Dependencies](https://img.shields.io/david/udiliaInc/create-react-library.svg)]()
 [![Dev Dependencies](https://img.shields.io/david/dev/udiliaInc/create-react-library.svg)]()
 
-A lightweight yet powerful typahead component for react.js. Key features include: 
+A lightweight yet powerful typeahead component for react.js. Key features include: 
 - no npm dependencies
 - tab through suggestions and submit with enter
 - highlighting matching word for the suggestions
-- async loading of data with variable thershold 
+- async loading of data with a variable threshold  
 - support for multiple groups
 - easy to use and still flexible
 
@@ -45,7 +45,7 @@ The 'value' string will be tested with the string the user is searching for. On 
 ```
 
 ### Async
-Often the data is fetched from an API in a totaly different structure. The developer must bring the data in the desired structure. Here is an example:
+Often the data is fetched from an API in a totally different structure. The developer must bring the data in the desired structure. Here is an example:
 
 
 ```javascript
@@ -101,7 +101,7 @@ render() {
 }
 ```
 #### onSubmit
-Callback for submit events. Submit events are firied if the user submits the input form. This can happen by pressing the Enter button while focusing the input field, pressing Enter while focusing one of the suggestions, clicking on one of the suggestions or clicking on the search button. The values that are passed to the callback are the original object and an info object. The info object contains these values: 
+Callback for submit events. Submit events are fired if the user submits the input form. This can happen by pressing the Enter button while focusing the input field, pressing Enter while focusing one of the suggestions, clicking on one of the suggestions or clicking on the search button. The values that are passed to the callback are the original object and an info object. The info object contains these values: 
 ```javascript
 { 
     isSuggestion: BOOLEAN,  // True when user clicked on suggestion or focused suggestion while pressing enter
@@ -131,6 +131,8 @@ render() {
     );
 }
 ```
+#### threshold
+How long should the asyncRequest wait until it loads new data (in ms). That way the server is not being spamed after each keystroke. Default = 200
 #### className
 Adds additional class name(s) to the default one which is "reactahead"
 #### id
