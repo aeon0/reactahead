@@ -99,9 +99,11 @@ class App extends React.Component {
 				<h2>Reactahead Demo</h2>
 
 				<div className="info_box">
-					Search for Citys (Berlin, Rome, New York, ...), Contries (USA, Germany, ...) or Continents.<br></br><br></br>
-					Visit the Github Page here: link<br></br>
-					Visit the NPM Page here: link<br></br>
+					Search for Citys (Berlin, Rome, New York, ...), Contries (USA, Germany, ...) or Continents.
+					Open the Console to check out the submit callback values
+					<br></br><br></br>
+					Visit the Github Page here: <a href="https://github.com/j-o-d-o/reactahead">Github</a><br></br>
+					Visit the NPM Page here: <a href="https://www.npmjs.com/package/reactahead">NPM</a><br></br>
 				</div>
 
 				<Reactahead
