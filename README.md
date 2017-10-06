@@ -19,7 +19,7 @@ Install with npm: `npm install reactahead`</br>
 Then include in your react app
 `import Reactahead from reactahead;`
 </br></br>
-If you want to use the code as base for your own typeahead component, feel free to take copy the code from /src/lib/component/Reactahead.js & Reactahead.scss into your own react app. Happy coding :)
+If you want to use the code as base for your own typeahead component, feel free to copy the code from /src/lib/component/Reactahead.js & Reactahead.scss into your own react app. Happy coding :)
 
 ## Dependencies
 There are no module dependencies. But for the search and cancel icon, the google material icons (https://material.io/icons/) must be included like this to the index.html:
@@ -156,6 +156,9 @@ Max amount of suggestions shown per group. Default = 20
 Data for suggestions. Format is `suggestions: { groupname: [{value: STRING, original: ANY}, ...], ...}`
 #### asyncLoadingFuncs
 The functions to load data e.g. from an API. 'asyncLoadingFuncs: { groupname: myFunc, ... }'
+
+## Bugs / Feature Requests / Contribution
+Feel free to file bug reports or feature requests via the issue tracker or contribute via pull requests. 
 
 </br></br>
 This npm module is built with "Create-React-Library" (https://github.com/UdiliaInc/create-react-library)
