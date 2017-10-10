@@ -135,20 +135,32 @@ class Reactahead extends React.Component {
 		if (evt !== undefined && evt !== null)
 			evt.preventDefault();
 
-		let groupName = Object.keys(this.state.filteredSuggestions)[0];
-
+		let submitDone = false;
 		// Via default send the first suggestion, otherwise send the raw value
-		if (this.state.filteredSuggestions["NO_RESULT"] !== undefined || this.props.sendFirstSuggestionFlag === false) {
-			this.props.onSubmit(null, { isSuggestion: false, valueRaw: this.state.currentValueRaw, suggestions: this.state.filteredSuggestions });
+		if (this.props.sendFirstSuggestionFlag) {
+			// Get first suggestions that is found
+			let first = undefined;
+			let groupName;
+			let keys = Object.keys(this.state.filteredSuggestions);
+			for (let i = 0; i < keys.length; i++) {
+				let group = this.state.filteredSuggestions[keys[i]];
+				for (let x = 0; x < group.length; x++) {
+					first = group[x];
+					groupName = keys[i]
+					break;
+				}
+			}
+
+			if (first !== undefined) {
+				let original = first.original;
+				if (original !== undefined) {
+					this.props.onSubmit(original, { isSuggestion: true, valueRaw: this.state.currentValueRaw, groupName: groupName });
+					submitDone = true;
+				}
+			}
 		}
-		else if (this.props.sendFirstSuggestionFlag && this.state.filteredSuggestions[groupName] !== undefined) {
-			let original = this.state.filteredSuggestions[groupName][0].original;
-			if (original !== undefined) {
-				this.props.onSubmit(original, { isSuggestion: true, valueRaw: this.state.currentValueRaw, groupName: groupName });
-			}
-			else {
-				this.props.onSubmit(null, { isSuggestion: false, valueRaw: this.state.currentValueRaw, suggestions: this.state.filteredSuggestions });
-			}
+		if(!submitDone) {
+			this.props.onSubmit(null, { isSuggestion: false, valueRaw: this.state.currentValueRaw, suggestions: this.state.filteredSuggestions });
 		}
 	}
 
