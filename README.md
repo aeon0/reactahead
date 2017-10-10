@@ -4,7 +4,7 @@
 [![Dependencies](https://img.shields.io/david/udiliaInc/create-react-library.svg)]()
 [![Dev Dependencies](https://img.shields.io/david/dev/udiliaInc/create-react-library.svg)]()
 
-A lightweight yet powerful typeahead component for react.js. Key features include: 
+A lightweight yet powerful typeahead component for react.js to search through data. Key features include: 
 - no npm dependencies
 - tab through suggestions and submit with enter
 - highlighting matching word for the suggestions

@@ -1,8 +1,8 @@
 {
   "name": "reactahead",
-  "version": "0.1.5",
-  "description": "Lightweight and powerful typeahead component for react.js",
-  "keywords": ["typeahead", "autocomplete", "autotype", "react.js", "component"],
+  "version": "0.1.6",
+  "description": "A lightweight yet powerful typeahead component for react.js to search through data",
+  "keywords": ["typeahead", "autocomplete", "autotype", "react.js", "component", "search", "data"],
   "main": "build/index.js",
   "scripts": {
     "start": "node scripts/start.js",
