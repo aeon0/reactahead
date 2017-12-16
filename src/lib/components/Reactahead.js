@@ -219,7 +219,7 @@ class Reactahead extends React.Component {
 		className: "",
 		id: "",
 		placeholder: "Search",
-		showGroups: true,
+		showGroupNames: true,
 		sendFirstSuggestionFlag: true,
 		maxSuggestions: 20,     // max suggestions per groupname
 		suggestions: {},        // must be { groupname: [{value: STRING, original: OBJECT}], ... } ('original' field is optional)
@@ -244,7 +244,7 @@ class Reactahead extends React.Component {
 						<span dangerouslySetInnerHTML={this.boldString(obj.value, obj.stringsFound)} />
 					</div>
 				});
-				if (this.props.showGroups && data.length > 0 && key !== "NO_RESULT") {
+				if (this.props.showGroupNames && data.length > 0 && key !== "NO_RESULT") {
 					return <div key={"reactahead_group_" + index} className="group_wrapper">
 						<div className="reactahead-group_heading">{key}</div>
 						{dataHtml}
