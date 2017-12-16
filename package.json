@@ -1,11 +1,12 @@
 {
   "name": "reactahead",
-  "version": "0.1.6",
-  "description": "A lightweight yet powerful typeahead component for react.js to search through data",
+  "version": "1.0.0",
+  "description": "A lightweight yet powerful typeahead component for react.js to search through data and get suggestions",
   "keywords": [
     "typeahead",
     "autocomplete",
     "autotype",
+    "suggestions",
     "react.js",
     "component",
     "search",

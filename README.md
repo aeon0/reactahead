@@ -15,9 +15,14 @@ A lightweight yet powerful typeahead component for react.js to search through da
 Check out a Demo here: https://j-o-d-o.github.io/reactahead
 
 ## Install
-Install with npm: `npm install reactahead`</br>
+Install with npm: 
+```
+>> npm install reactahead
+```
 Then include in your react app
-`import Reactahead from reactahead;`
+```javscript
+import Reactahead from reactahead;
+```
 </br></br>
 If you want to use the code as base for your own typeahead component, feel free to copy the code from /src/lib/component/Reactahead.js & Reactahead.scss into your own react app. Happy coding :)
 
