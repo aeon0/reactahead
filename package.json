@@ -14,12 +14,13 @@
   ],
   "main": "build/index.js",
   "scripts": {
-    "build-css": "node-sass --include-path src src/demo/App.scss public/bundle.css --source-map false",
+    "build-css": "node-sass --include-path src src/demo/App.scss public/bundle.css",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "build-demo": "webpack --config config/webpack.config.demo.js -p && npm run build-css",
-    "set-node-env": "npm run env NODE_ENV=production"
+    "set-node-env": "SET NODE_ENV=production",
+    "set-node-env2": "npm run env NODE_ENV=production"
   },
   "repository": {
     "type": "git",
