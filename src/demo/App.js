@@ -133,20 +133,18 @@ class App extends React.Component {
 					}}
 				></Reactahead>
 
-				<div className="cb_wrapper">
-					<h4>Callback</h4>
-					{this.state.cbType !== null &&
-						<div>
-							<div><span>Type: </span>{this.state.cbType}</div>
-							<div>
-								<div>Info: </div> {this.state.cbInfo}
-							</div>
-							<div>
-								<div>Object: </div> {this.state.cbObj}
-							</div>
+				{this.state.cbType !== null &&
+					<div className="cb_wrapper">
+						<h4>Callback</h4>
+						<div className="section"><span><b>Type: </b></span>{this.state.cbType}</div>
+						<div className="section">
+							<div><b>Info: </b></div> {this.state.cbInfo}
 						</div>
-					}
-				</div>
+						<div className="section">
+							<div><b>Object: </b></div> {this.state.cbObj}
+						</div>
+					</div>
+				}
 
 			</div>
 		);
