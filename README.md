@@ -77,29 +77,48 @@ class App extends React.Component {
         });
     }
 
-	  render() {
-		    return (
+      render() {
+        return (
             <Reactahead
                 onSubmit={this.onSubmit}
                 asyncLoadingFuncs={{
                     "Group Async": this.asyncRequest
                 }}
             ></Reactahead>
-		    );
-	}
+        );
+    }
 }
 
 export default App
+```
+## API
+Method | Description
+--- | ---
+`clearInput()` | Clear the user input and close the suggestions
+
+To access the api use the api prop:
+```javascript
+submit(org, info){
+    // Close suggestions
+    this.my_reactahead.clearInput()
+}
+render() {
+    return (
+        <Reactahead 
+            onSubmit={this.submit} 
+            api={api => this.my_reactahead = api} ...>
+        </Reactahead>
+    );
+}
 ```
 
 ## Properties
 There are different properties that can be passed to the component:
 
 #### onChange
-Callback for change events. Returns the key event of the input. 
+Callback for change events. Passes through the input event for onChange.
 ```javascript
 myChangeCb(evt){
-    // evt has the key evt of the input field
 }
 render() {
     return (
@@ -108,7 +127,13 @@ render() {
 }
 ```
 #### onSubmit
-Callback for submit events. Submit events are fired if the user submits the input form. This can happen by pressing the Enter button while focusing the input field, pressing Enter while focusing one of the suggestions, clicking on one of the suggestions or clicking on the search button. The values that are passed to the callback are the original object and an info object. The info object contains these values: 
+Callback for submit events. Submit events are fired if the user submits the input form. This can happen as a result of these events: 
+- pressing Enter while focusing the input field
+- pressing Enter while focusing one of the suggestions
+- clicking on one of the suggestions
+- clicking on the search button. 
+
+The values that are passed to the callback are the original object and an info object. The info object contains these values: 
 ```javascript
 { 
     isSuggestion: BOOLEAN,  // True when user clicked on suggestion or focused suggestion while pressing enter
@@ -127,10 +152,9 @@ render() {
 }
 ```
 #### onCancel
-Callback for the cancel event which occurs if the user presses the cancel/close button 'X'. 
+Callback for the cancel event which occurs if the user presses the cancel/close button 'X'. Or clears the input via the api.
 ```javascript
 myCancelCb(){
-  // e.g. clear input like this: this.refs.reactahead.clearInput();
 }
 render() {
     return (
@@ -140,13 +164,9 @@ render() {
 ```
 #### threshold
 How long should the asyncRequest wait until it loads new data (in ms). That way the server is not being spamed after each keystroke. Default = 200
-#### className
-Adds additional class name(s) to the default one which is "reactahead"
-#### id
-Adds an id to the component
 #### placeholder
 Determines the placeholder for the input field. Default = "Search"
-#### showGroups
+#### showGroupNames
 Determines weather the suggestions groups should be shown or not. If there are no results for the group it is not shown regardless. Default = true
 #### sendFirstSuggestionFlag
 If it is set to true and the user is presses the search button or enter while focusing the search field, the first suggestion will be sent via the submit callback. On false the 1. argument of onSubmit will be null and all the suggestions will be in info["suggestions"]. Default = true
@@ -155,10 +175,33 @@ Max amount of suggestions shown per group. Default = 20
 #### suggestions
 Data for suggestions. Format is `suggestions: { groupname: [{value: STRING, original: ANY}, ...], ...}`
 #### asyncLoadingFuncs
-The functions to load data e.g. from an API. 'asyncLoadingFuncs: { groupname: myFunc, ... }'
+The functions to load data e.g. from an API. 
+```
+<Reactahead
+    onSubmit={this.onSubmit}
+    asyncLoadingFuncs={{
+        "Group Async": this.asyncRequest
+    }}
+></Reactahead>
+````
+#### ...rest
+All other properties are passed to the outer reactahead component <div/>. e.g. id, className, style, ...
 
 ## Bugs / Feature Requests / Contribution
 Feel free to file bug reports or feature requests via the issue tracker or contribute via pull requests. 
+To run the demo locally run:
+```
+>> npm run start
+```
+To build the module:
+```
+>> npm run build
+```
+To build the public github page:
+```
+>> npm run set-node-env
+>> npm run build-demo
+```
 
 </br></br>
 This npm module is built with "Create-React-Library" (https://github.com/UdiliaInc/create-react-library)
