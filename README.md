@@ -12,7 +12,7 @@ A lightweight yet powerful typeahead component for react.js to search through da
 - support for multiple groups
 - easy to use and still flexible
 
-Check out a Demo here: http://185.82.21.82:3350/
+Check out a Demo here: https://j-o-d-o.github.io/reactahead
 
 ## Install
 Install with npm: `npm install reactahead`</br>
