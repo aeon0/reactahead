@@ -32,6 +32,15 @@ class Reactahead extends React.Component {
 		this.boldString = this.boldString.bind(this);
 	}
 
+	componentDidMount(){
+		this.props.api({
+			clearInput: () => this.clearInput()
+		});
+	}
+	componentWillUnmount(){
+		this.props.api(null);
+	}
+
 	// This is the "entry point" for getting new suggestions based on the user input
 	onChange(evt) {
 		this.props.onChange(evt);
