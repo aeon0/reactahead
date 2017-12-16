@@ -2,7 +2,10 @@
 	background: White;
 	width: 100%;
 	max-width: 700px;
-	box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    form{
+        position: relative;
+    }
     .reactahead-input-wrapper {
         display: -webkit-flex;
         display: flex;
@@ -39,6 +42,10 @@
         }
     }
     .reactahead-suggestions-wrapper {
+        position: absolute;
+        width: 100%;
+        background: white;
+        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
         max-height: 300px;
         overflow-y: auto;
         .reactahead-suggestion_field {

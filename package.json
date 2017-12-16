@@ -2,12 +2,23 @@
   "name": "reactahead",
   "version": "0.1.6",
   "description": "A lightweight yet powerful typeahead component for react.js to search through data",
-  "keywords": ["typeahead", "autocomplete", "autotype", "react.js", "component", "search", "data"],
+  "keywords": [
+    "typeahead",
+    "autocomplete",
+    "autotype",
+    "react.js",
+    "component",
+    "search",
+    "data"
+  ],
   "main": "build/index.js",
   "scripts": {
+    "build-css": "node-sass --include-path src src/demo/App.scss public/bundle.css --source-map false",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "build-demo": "webpack --config config/webpack.config.demo.js -p && npm run build-css",
+    "set-node-env": "npm run env NODE_ENV=production"
   },
   "repository": {
     "type": "git",
@@ -63,7 +74,8 @@
     "webpack": "3.5.1",
     "webpack-dev-server": "2.7.1",
     "webpack-manifest-plugin": "1.2.1",
-    "whatwg-fetch": "2.0.3"
+    "whatwg-fetch": "2.0.3",
+    "cross-env": "^5.1.1"
   },
   "peerDependencies": {
     "react": ">=0.14",
