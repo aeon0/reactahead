@@ -217,7 +217,6 @@ class Reactahead extends React.Component {
 		onCancel: function () { },
 		threshold: 200,
 		className: "",
-		id: "",
 		placeholder: "Search",
 		showGroupNames: true,
 		sendFirstSuggestionFlag: true,
@@ -227,7 +226,24 @@ class Reactahead extends React.Component {
 	}
 
 	render() {
-		let className = "reactahead " + this.props.className;
+		const {
+			api,
+			onChange,
+			onSubmit,
+			onCancel,
+			threshold,
+			className,
+			placeholder,
+			showGroupNames,
+			sendFirstSuggestionFlag,
+			maxSuggestions,
+			suggestions,
+			asyncLoadingFuncs,
+			...rest
+		  } = this.props;
+
+
+		let fullClassNames = "reactahead " + className;
 
 		let displaySuggestions = <div></div>;
 		if (this.state.currentValueRaw.length > 0) {
@@ -257,7 +273,7 @@ class Reactahead extends React.Component {
 		}
 
 		return (
-			<div id={this.props.id} className={className}>
+			<div className={fullClassNames} {...rest}>
 				<form onSubmit={(e) => this.onSubmit(e)}>
 					<div className="reactahead-input-wrapper">
 
