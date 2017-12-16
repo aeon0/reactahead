@@ -14,6 +14,12 @@ class App extends React.Component {
 		this.loadCountries = this.loadCountries.bind(this);
 		this.loadContinents = this.loadContinents.bind(this);
 
+		this.state = {
+			cbInfo: null,
+			cbObj: null,
+			cbType: null
+		}
+
 		this.testSuggestions = [
 			{ value: "A Test Value Berlin Germa", original: { title: "A Test Value" } },
 			{ value: "another_test_value Rome", original: { title: "another_test_value" } },
@@ -46,6 +52,12 @@ class App extends React.Component {
 		console.log("Submit Callback with value");
 		console.log(obj);
 		console.log(info);
+		this.setState({
+			cbInfo: JSON.stringify(info),
+			cbType: "onSubmit",
+			cbObj: JSON.stringify(obj)
+		});
+		this.reactahead.clearInput();
 	}
 
 	onCancel() {
@@ -107,7 +119,7 @@ class App extends React.Component {
 				</div>
 
 				<Reactahead
-					ref="reactahead"
+					api={api => this.reactahead = api}
 					onSubmit={this.onSubmit}
 					onCancel={this.onCancel}
 					onChange={this.onChange}
@@ -120,6 +132,21 @@ class App extends React.Component {
 						"Continents (async)": this.loadContinents
 					}}
 				></Reactahead>
+
+				<div className="cb_wrapper">
+					<h4>Callback</h4>
+					{this.state.cbType !== null &&
+						<div>
+							<div><span>Type: </span>{this.state.cbType}</div>
+							<div>
+								<div>Info: </div> {this.state.cbInfo}
+							</div>
+							<div>
+								<div>Object: </div> {this.state.cbObj}
+							</div>
+						</div>
+					}
+				</div>
 
 			</div>
 		);
