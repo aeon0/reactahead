@@ -24,12 +24,18 @@ class App extends React.Component {
 			{ value: "A Test Value Berlin Germa", original: { title: "A Test Value" } },
 			{ value: "another_test_value Rome", original: { title: "another_test_value" } },
 			{ value: "random title Regen", original: { title: "random title" } },
+			{ value: "as", original: { title: "as" } },
+			{ value: "asdf", original: { title: "asdf" } },
 		];
 		this.citySuggestions = [
 			{ value: "Berlin (Germany)", original: { name: "Berlin", population: 3470000 } },
 			{ value: "New York (USA)", original: { name: "New York", population: 8538000 } },
 			{ value: "Rome (Italy)", original: { name: "Rom", population: 2868000 } },
-			{ value: "Regensburg (Germany)", original: { name: "Regensburg", population: 142292 } }
+			{ value: "London (England)", original: { name: "London", population: 142292 } },
+			{ value: "Madird (Spain)", original: { name: "Madird", population:  3165235 } },
+			{ value: "Paris (France)", original: { name: "Paris", population:  2241346} },
+			{ value: "Hamburg (Germany)", original: { name: "Hamburg", population: 1748916 } },
+			{ value: "Munich (Germany)", original: { name: "Munich", population: 1521678 } }
 		];
 
 		// Data to mock an api request
@@ -37,7 +43,13 @@ class App extends React.Component {
 			{ name: { en: "Germany" }, population: 123 },
 			{ name: { en: "Italy" }, population: 123 },
 			{ name: { en: "USA" }, population: 123 },
-			{ name: { en: "Norway" }, population: 123 }
+			{ name: { en: "Spain" }, population: 123 },
+			{ name: { en: "France" }, population: 123 },
+			{ name: { en: "Norway" }, population: 123 },
+			{ name: { en: "England" }, population: 123 },
+			{ name: { en: "Russia" }, population: 123 },
+			{ name: { en: "Sweden" }, population: 123 },
+			{ name: { en: "Poland" }, population: 123 },
 		];
 		this.continents = [
 			{ name: "Asia", population: '4,46 bil' },

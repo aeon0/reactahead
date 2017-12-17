@@ -4,6 +4,8 @@
 [![Dependencies](https://img.shields.io/david/udiliaInc/create-react-library.svg)]()
 [![Dev Dependencies](https://img.shields.io/david/dev/udiliaInc/create-react-library.svg)]()
 
+![Alt Text](./images/example.gif)
+
 A lightweight yet powerful typeahead component for react.js to search through data. Key features include: 
 - no npm dependencies
 - tab through suggestions and submit with enter
@@ -207,6 +209,13 @@ To build the public github page:
 >> npm run set-node-env
 >> npm run build-demo
 ```
+
+## Roadmap
+- Posibility to use an array of strings for simpler suggestion tasks
+- Search also the groups, so if there is a group = "continents" display all continents if user types "continent"
+- Implement fuzzy search where not every character must be the same. E.g. display "Apple" even if user writes "Aple"
+- Support icons infront of suggestions
+- Fully customizable suggestions
 
 </br></br>
 This npm module is built with "Create-React-Library" (https://github.com/UdiliaInc/create-react-library)

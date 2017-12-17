@@ -20,7 +20,7 @@
     "test": "node scripts/test.js --env=jsdom",
     "build-demo": "webpack --config config/webpack.config.demo.js -p && npm run build-css",
     "set-node-env": "SET NODE_ENV=production",
-    "set-node-env2": "npm run env NODE_ENV=production"
+    "update-gh-page": "git subtree push --prefix public origin gh-pages"
   },
   "repository": {
     "type": "git",
