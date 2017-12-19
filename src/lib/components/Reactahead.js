@@ -215,6 +215,7 @@ class Reactahead extends React.Component {
 		onChange: function () { },
 		onSubmit: function () { },
 		onCancel: function () { },
+		api: function() { }, 
 		threshold: 200,
 		className: "",
 		placeholder: "Search",
