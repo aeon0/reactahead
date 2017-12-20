@@ -18,7 +18,8 @@ class Reactahead extends React.Component {
 		// Init state
 		this.state = {
 			filteredSuggestions: {},    // The suggestions that are shown to the user
-			currentValueRaw: ""         // The current input value of the user into the textfield
+			currentValueRaw: "",        // The current input value of the user into the textfield
+			noResultFlag: false, 		// Flag if any suggestion matches the user inputddddddd
 		};
 
 		// Bind functions
@@ -87,7 +88,7 @@ class Reactahead extends React.Component {
 						this.filterSuggestions(value, "from_array");
 					});
 				}
-				else{
+				else {
 					Object.keys(this.props.asyncLoadingFuncs).forEach((key, index) => {
 						this.props.asyncLoadingFuncs[key](value).then(res => {
 							this.addSuggestionsToGroup(key, res);
@@ -104,6 +105,9 @@ class Reactahead extends React.Component {
 	}
 
 	filterSuggestions(searchString, group) {
+		// Start search at first character the user type, should this be a user property?
+		let startSearchAt = 1;
+
 		// ^ => start of line | $ => end of line | .* => Dot means any character, * means any amount of times
 		//let regexp = new RegExp("^.*" + searchString + ".*$", 'i');
 		//Note: str.indexOf() is 1.) faster and 2.) returns position which is needed
@@ -116,7 +120,7 @@ class Reactahead extends React.Component {
 			let stringsFound = [];
 			// Search each element of the search string inside the suggestions string
 			for (let x = 0; x < searchStringArray.length; x++) {
-				if (searchStringArray[x].length > 1) {
+				if (searchStringArray[x].length >= 1 || searchString >= startSearchAt) {
 					var pos = searchIn.toLowerCase().indexOf(searchStringArray[x]);
 					if (pos !== -1) {
 						stringsFound.push({
@@ -157,14 +161,19 @@ class Reactahead extends React.Component {
 		});
 
 		let filteredSuggestions = this.state.filteredSuggestions;
-		filteredSuggestions[group] = filtered;
+		if (group !== undefined) {
+			if (filtered.length === 0)
+				delete filteredSuggestions[group];
+			else {
+				filteredSuggestions[group] = filtered;
+				this.setState({ noResultFlag: false });
+			}
+		}
 
-		if (Object.keys(filteredSuggestions).length === 0 && searchString.length >= 2) {
-			filteredSuggestions["NO_RESULT"] = [{
-				value: "No results",
-				index: -1,
-				stringsFound: []
-			}];
+		console.log(searchString);
+		if (Object.keys(filteredSuggestions).length === 0 && searchString.length >= startSearchAt) {
+			console.log("ADD NO RESULT");
+			this.setState({ noResultFlag: true });
 		}
 
 		this.setState({ filteredSuggestions: filteredSuggestions });
@@ -246,10 +255,12 @@ class Reactahead extends React.Component {
 		onSubmit: function () { },
 		onCancel: function () { },
 		api: function () { },
+		showNoResult: true,
+		noResultMsg: "No Results found",
 		threshold: 200,
 		className: "",
 		placeholder: "Search",
-		showGroupNames: true,
+		showGroupNames: false,
 		sendFirstSuggestionFlag: true,
 		maxSuggestions: 20,     // max suggestions per groupname
 		suggestions: {},        // must be { groupname: [{value: STRING, original: OBJECT}], ... } ('original' field is optional)
@@ -266,6 +277,8 @@ class Reactahead extends React.Component {
 			className,
 			placeholder,
 			showGroupNames,
+			showNoResult,
+			noResultMsg,
 			sendFirstSuggestionFlag,
 			maxSuggestions,
 			suggestions,
@@ -275,32 +288,41 @@ class Reactahead extends React.Component {
 
 
 		let fullClassNames = "reactahead " + className;
-
+		console.log(this.state.filteredSuggestions);
 		let displaySuggestions = <div></div>;
 		if (this.state.currentValueRaw.length > 0) {
-			displaySuggestions = Object.keys(this.state.filteredSuggestions).map((key, index) => {
-				let data = this.state.filteredSuggestions[key];
-				let dataHtml = data.map((obj, i) => {
-					return <div
-						key={"reactahead_suggestion_" + i}
-						className="reactahead-suggestion_field"
-						onClick={() => this.selectSuggestion(obj, key)}
-						tabIndex="0"
-						onKeyPress={(evt) => this.handleKeyPress(evt, obj, key)}
-					>
-						<span dangerouslySetInnerHTML={this.boldString(obj.value, obj.stringsFound)} />
-					</div>
+			if (this.state.noResultFlag) {
+				displaySuggestions = <div
+					className="reactahead-suggestion_field"
+				>
+					{noResultMsg}
+				</div>
+			}
+			else {
+				displaySuggestions = Object.keys(this.state.filteredSuggestions).map((key, index) => {
+					let data = this.state.filteredSuggestions[key];
+					let dataHtml = data.map((obj, i) => {
+						return <div
+							key={"reactahead_suggestion_" + i}
+							className="reactahead-suggestion_field"
+							onClick={() => this.selectSuggestion(obj, key)}
+							tabIndex="0"
+							onKeyPress={(evt) => this.handleKeyPress(evt, obj, key)}
+						>
+							<span dangerouslySetInnerHTML={this.boldString(obj.value, obj.stringsFound)} />
+						</div>
+					});
+					if (this.props.showGroupNames && data.length > 0) {
+						return <div key={"reactahead_group_" + index} className="group_wrapper">
+							<div className="reactahead-group_heading">{key}</div>
+							{dataHtml}
+						</div>
+					}
+					else {
+						return dataHtml;
+					}
 				});
-				if (this.props.showGroupNames && data.length > 0 && key !== "NO_RESULT") {
-					return <div key={"reactahead_group_" + index} className="group_wrapper">
-						<div className="reactahead-group_heading">{key}</div>
-						{dataHtml}
-					</div>
-				}
-				else {
-					return dataHtml;
-				}
-			});
+			}
 		}
 
 		return (
