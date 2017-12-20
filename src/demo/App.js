@@ -136,13 +136,14 @@ class App extends React.Component {
 					Visit the Github Page here: <a href="https://github.com/j-o-d-o/reactahead">Github</a><br></br>
 					Visit the NPM Page here: <a href="https://www.npmjs.com/package/reactahead">NPM</a><br></br>
 				</div>
-
+ 
 				<Reactahead
 					api={api => this.reactahead = api}
 					onSubmit={this.onSubmit}
 					onCancel={this.onCancel}
 					onChange={this.onChange}
 					showGroupNames={true}
+					placeholder="Search (e.g. type: England)"
 					suggestions={{
 						"Suggestions Group 1": this.testSuggestions,
 						"Citys": this.citySuggestions

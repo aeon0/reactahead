@@ -1,6 +1,6 @@
 {
   "name": "reactahead",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A lightweight yet powerful typeahead component for react.js to search through data and get suggestions",
   "keywords": [
     "typeahead",

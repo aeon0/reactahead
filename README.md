@@ -250,6 +250,7 @@ To build the public github page:
 - Implement fuzzy search where not every character must be the same. E.g. display "Apple" even if user writes "Aple"
 - Support icons infront of suggestions
 - Fully customizable suggestion styles
+- Flag to just always show all provided suggestions (and async suggestions). This is usefull if the developer does not want to use the reactahead search algorithm but his or her own. 
 
 </br></br>
 This npm module is built with "Create-React-Library" (https://github.com/UdiliaInc/create-react-library)
