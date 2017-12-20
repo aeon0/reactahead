@@ -8,10 +8,10 @@
 
 A lightweight yet powerful typeahead component for react.js to search through data. Key features include: 
 - no npm dependencies
-- tab through suggestions and submit with enter
 - highlighting matching word for the suggestions
 - async loading of data with a variable threshold  
 - support for multiple groups
+- tab through suggestions and submit with enter
 - easy to use and still flexible
 
 Check out a Demo here: https://j-o-d-o.github.io/reactahead
@@ -25,7 +25,7 @@ Then include in your react app
 ```javscript
 import Reactahead from reactahead;
 ```
-</br></br>
+
 If you want to use the code as base for your own typeahead component, feel free to copy the code from /src/lib/component/Reactahead.js & Reactahead.scss into your own react app. Happy coding :)
 
 ## Dependencies
@@ -38,23 +38,31 @@ There are no module dependencies. But for the search and cancel icon, the google
 ```
 
 ## Examples
-
-The data for the suggestions and the async data must be provided in this format:</br>
-`data = [{ value: STRING, original: ANY }, ...]`</br>
-The 'value' string will be tested with the string the user is searching for. On submit both values will be provided.
-
 ### Basic
 ```javascript
 <Reactahead
-    onSubmit={this.onSubmit}
+    suggestions={["Berlin", "Paris", "London", "New York"]}
+></Reactahead>
+```
+### Groups
+```javascript
+<Reactahead
     suggestions={{
-        "Citys": [
-            { value: "Berlin (Germany)", original: { name: "Berlin", population: 3470000 } },
-            { value: "New York (USA)", original: { name: "New York", population: 8538000 } },
-            { value: "Rome (Italy)", original: { name: "Rom", population: 2868000 } },
-            { value: "Regensburg (Germany)", original: { name: "Regensburg", population: 142292 } }
-        ]
+        "City": ["Berlin", "Paris", "London", "New York"],
+        "Country": ["USA", "England", "Germany", "Paris", "Spain"]
     }}
+></Reactahead>
+```
+### Passing Objects
+`value` will be used to search against the users input and will show in the suggestions
+```javascript
+<Reactahead
+    suggestions={[
+        { value: "Berlin (Germany)", original: { name: "Berlin", population: 3470000 } },
+        { value: "New York (USA)", original: { name: "New York", population: 8538000 } },
+        { value: "Rome (Italy)", original: { name: "Rom", population: 2868000 } },
+        { value: "Regensburg (Germany)", original: { name: "Regensburg", population: 142292 } }
+    ]}
 ></Reactahead>
 ```
 
@@ -63,6 +71,38 @@ Often the data is fetched from an API in a totally different structure. The deve
 
 
 ```javascript
+// Passing as array
+class App extends React.Component {
+
+    onSubmit(originalObj, info){
+    }
+
+    asyncRequest(searchValue) {
+        // 'searchValue' contains the user input in the search box
+        return API.getSuggestions(searchValue).then((res) => {
+            let returnValue = [];
+            for (var i = 0; i < res.length; i++) {
+                returnValue.push(res[i].name.en);
+            }
+            return returnValue;
+        });
+    }
+
+    render() {
+        return (
+            <Reactahead
+                onSubmit={this.onSubmit}
+                asyncLoadingFuncs={this.asyncRequest}
+            ></Reactahead>
+        );
+    }
+}
+
+export default App
+```
+
+```javascript
+// Passing as Object and as group
 class App extends React.Component {
 
     onSubmit(originalObj, info){
@@ -84,7 +124,7 @@ class App extends React.Component {
         });
     }
 
-      render() {
+    render() {
         return (
             <Reactahead
                 onSubmit={this.onSubmit}
@@ -119,11 +159,16 @@ render() {
 }
 ```
 
-## Properties
-There are different properties that can be passed to the component:
+## Callbacks
 
-#### onChange
-Callback for change events. Passes through the input event for onChange.
+| Property        | Description  |
+| ------------- |:-------------| 
+| onChange: Function     | Callback for change events. Passes through the input event for onChange. | 
+| onSubmit: Function     | Callback for submit events. Submit events are fired if the user submits the input form.       |  
+| onCancel: Function | Callback for the cancel event which occurs if the user presses the cancel/close button 'X'. Or clears the input via the api.      | 
+
+#### Examples
+
 ```javascript
 myChangeCb(evt){
 }
@@ -133,8 +178,8 @@ render() {
     );
 }
 ```
-#### onSubmit
-Callback for submit events. Submit events are fired if the user submits the input form. This can happen as a result of these events: 
+
+onSubmit gets triggered by these events: 
 - pressing Enter while focusing the input field
 - pressing Enter while focusing one of the suggestions
 - clicking on one of the suggestions
@@ -158,8 +203,6 @@ render() {
     );
 }
 ```
-#### onCancel
-Callback for the cancel event which occurs if the user presses the cancel/close button 'X'. Or clears the input via the api.
 ```javascript
 myCancelCb(){
 }
@@ -169,30 +212,22 @@ render() {
     );
 }
 ```
-#### threshold
-How long should the asyncRequest wait until it loads new data (in ms). That way the server is not being spamed after each keystroke. Default = 200
-#### placeholder
-Determines the placeholder for the input field. Default = "Search"
-#### showGroupNames
-Determines weather the suggestions groups should be shown or not. If there are no results for the group it is not shown regardless. Default = true
-#### sendFirstSuggestionFlag
-If it is set to true and the user is presses the search button or enter while focusing the search field, the first suggestion will be sent via the submit callback. On false the 1. argument of onSubmit will be null and all the suggestions will be in info["suggestions"]. Default = true
-#### maxSuggestions
-Max amount of suggestions shown per group. Default = 20
-#### suggestions
-Data for suggestions. Format is `suggestions: { groupname: [{value: STRING, original: ANY}, ...], ...}`
-#### asyncLoadingFuncs
-The functions to load data e.g. from an API. 
-```
-<Reactahead
-    onSubmit={this.onSubmit}
-    asyncLoadingFuncs={{
-        "Group Async": this.asyncRequest
-    }}
-></Reactahead>
-````
-#### ...rest
-All other properties are passed to the outer reactahead component <div/>. e.g. id, className, style, ...
+
+## Propertys
+
+| Tables        | Are           |
+| ------------- |:-------------| 
+| threshold: int    | How long should the asyncRequest wait until it loads new data (in ms). That way the server is not being spamed after each keystroke. Default = 200 | 
+| placeholder: string | Determines the placeholder for the input field. Default = "Search" |
+| showGroupNames: boolean | Determines weather the suggestions groups should be shown or not. If there are no results for the group it is not shown regardless. Default = false |
+| showNoResults: boolean | Flag to deterimne weather to show a "no result" suggestion if no suggestion matches the user input |
+| noResultMsg: string | String that shows if showNoResults = true, Default = "No Results found" |
+| sendFirstSuggestionFlag: boolean | If it is set to true and the user is presses the search button or enter while focusing the search field, the first suggestion will be sent via the submit callback. On false the 1. argument of onSubmit will be null and all the suggestions will be in info["suggestions"]. Default = true |
+| maxSuggestions: int | Max amount of suggestions shown per group. Default = 20 |
+| suggestions: array[any] -or- object | Data for suggestions (check out the examples for more info) |
+| asyncLoadingFuncs: Function -or- object | The functions to load data e.g. from an API. (check out the examples for more infos) |
+| ...rest | All other properties are passed to the outer reactahead component div e.g. id, className, style, ... |
+
 
 ## Bugs / Feature Requests / Contribution
 Feel free to file bug reports or feature requests via the issue tracker or contribute via pull requests. 
@@ -211,11 +246,10 @@ To build the public github page:
 ```
 
 ## Roadmap
-- Posibility to use an array of strings for simpler suggestion tasks
 - Search also the groups, so if there is a group = "continents" display all continents if user types "continent"
 - Implement fuzzy search where not every character must be the same. E.g. display "Apple" even if user writes "Aple"
 - Support icons infront of suggestions
-- Fully customizable suggestions
+- Fully customizable suggestion styles
 
 </br></br>
 This npm module is built with "Create-React-Library" (https://github.com/UdiliaInc/create-react-library)
