@@ -142,6 +142,7 @@ class App extends React.Component {
 					onSubmit={this.onSubmit}
 					onCancel={this.onCancel}
 					onChange={this.onChange}
+					showGroupNames={true}
 					suggestions={{
 						"Suggestions Group 1": this.testSuggestions,
 						"Citys": this.citySuggestions
