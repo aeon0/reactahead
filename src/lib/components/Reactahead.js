@@ -170,9 +170,7 @@ class Reactahead extends React.Component {
 			}
 		}
 
-		console.log(searchString);
 		if (Object.keys(filteredSuggestions).length === 0 && searchString.length >= startSearchAt) {
-			console.log("ADD NO RESULT");
 			this.setState({ noResultFlag: true });
 		}
 
@@ -288,7 +286,7 @@ class Reactahead extends React.Component {
 
 
 		let fullClassNames = "reactahead " + className;
-		console.log(this.state.filteredSuggestions);
+
 		let displaySuggestions = <div></div>;
 		if (this.state.currentValueRaw.length > 0) {
 			if (this.state.noResultFlag) {
