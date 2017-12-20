@@ -165,7 +165,8 @@ class App extends React.Component {
 						</div>
 					</div>
 				}
-
+				
+				{/*
 				<Reactahead
 					asyncLoadingFuncs={this.loadContinents}
 				></Reactahead>
@@ -173,6 +174,7 @@ class App extends React.Component {
 				<Reactahead
 					suggestions={this.simpleSuggestions}
 				></Reactahead>
+				*/}
 
 			</div>
 		);
