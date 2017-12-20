@@ -20,6 +20,13 @@ class App extends React.Component {
 			cbType: null
 		}
 
+		this.simpleSuggestions = [
+			"Test",
+			"Test2",
+			"Test3",
+			"Test4"
+		]
+
 		this.testSuggestions = [
 			{ value: "A Test Value Berlin Germa", original: { title: "A Test Value" } },
 			{ value: "another_test_value Rome", original: { title: "another_test_value" } },
@@ -32,8 +39,8 @@ class App extends React.Component {
 			{ value: "New York (USA)", original: { name: "New York", population: 8538000 } },
 			{ value: "Rome (Italy)", original: { name: "Rom", population: 2868000 } },
 			{ value: "London (England)", original: { name: "London", population: 142292 } },
-			{ value: "Madird (Spain)", original: { name: "Madird", population:  3165235 } },
-			{ value: "Paris (France)", original: { name: "Paris", population:  2241346} },
+			{ value: "Madird (Spain)", original: { name: "Madird", population: 3165235 } },
+			{ value: "Paris (France)", original: { name: "Paris", population: 2241346 } },
 			{ value: "Hamburg (Germany)", original: { name: "Hamburg", population: 1748916 } },
 			{ value: "Munich (Germany)", original: { name: "Munich", population: 1521678 } }
 		];
@@ -157,6 +164,14 @@ class App extends React.Component {
 						</div>
 					</div>
 				}
+
+				<Reactahead
+					asyncLoadingFuncs={this.loadContinents}
+				></Reactahead>
+
+				<Reactahead
+					suggestions={this.simpleSuggestions}
+				></Reactahead>
 
 			</div>
 		);

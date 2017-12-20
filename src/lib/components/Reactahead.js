@@ -26,19 +26,36 @@ class Reactahead extends React.Component {
 		this.onSubmit = this.onSubmit.bind(this);
 		this.clearInput = this.clearInput.bind(this);
 
+		this.addSuggestionsToGroup = this.addSuggestionsToGroup.bind(this);
 		this.filterSuggestions = this.filterSuggestions.bind(this);
 		this.selectSuggestion = this.selectSuggestion.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.boldString = this.boldString.bind(this);
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		this.props.api({
 			clearInput: () => this.clearInput()
 		});
 	}
-	componentWillUnmount(){
+	componentWillUnmount() {
 		this.props.api(null);
+	}
+
+	addSuggestionsToGroup(key, suggestions, refresh = true) {
+		if (!(this.formatedSuggestions[key] instanceof Array) || refresh)
+			this.formatedSuggestions[key] = []
+		suggestions.forEach((ele) => {
+			if (ele instanceof Object) {
+				this.formatedSuggestions[key].push(ele);
+			}
+			else {
+				this.formatedSuggestions[key].push({
+					value: ele.toString(),
+					original: ele.toString()
+				});
+			}
+		});
 	}
 
 	// This is the "entry point" for getting new suggestions based on the user input
@@ -49,22 +66,35 @@ class Reactahead extends React.Component {
 		this.setState({ currentValueRaw: value });
 
 		if (value.length >= 1) {
-			Object.keys(this.props.suggestions).forEach((key, index) => {
-				this.formatedSuggestions[key] = this.props.suggestions[key];
-				this.filterSuggestions(value, key);
-			});
-
+			if (this.props.suggestions instanceof Array) {
+				this.addSuggestionsToGroup("from_array", this.props.suggestions);
+				this.filterSuggestions(value, "from_array");
+			}
+			else {
+				Object.keys(this.props.suggestions).forEach((key, index) => {
+					this.addSuggestionsToGroup(key, this.props.suggestions[key]);
+					this.filterSuggestions(value, key);
+				});
+			}
 
 			// cancel all the current requests in timeout.
 			clearTimeout(this.asynRequests);
 
 			this.asynRequests = setTimeout(() => {
-				Object.keys(this.props.asyncLoadingFuncs).forEach((key, index) => {
-					this.props.asyncLoadingFuncs[key](value).then(res => {
-						this.formatedSuggestions[key] = res;
-						this.filterSuggestions(value, key);
+				if (this.props.asyncLoadingFuncs instanceof Function) {
+					this.props.asyncLoadingFuncs(value).then(res => {
+						this.addSuggestionsToGroup("from_array", res);
+						this.filterSuggestions(value, "from_array");
 					});
-				});
+				}
+				else{
+					Object.keys(this.props.asyncLoadingFuncs).forEach((key, index) => {
+						this.props.asyncLoadingFuncs[key](value).then(res => {
+							this.addSuggestionsToGroup(key, res);
+							this.filterSuggestions(value, key);
+						});
+					});
+				}
 			}, this.props.threshold);
 		}
 		else {
@@ -168,7 +198,7 @@ class Reactahead extends React.Component {
 				}
 			}
 		}
-		if(!submitDone) {
+		if (!submitDone) {
 			this.props.onSubmit(null, { isSuggestion: false, valueRaw: this.state.currentValueRaw, suggestions: this.state.filteredSuggestions });
 		}
 	}
@@ -215,7 +245,7 @@ class Reactahead extends React.Component {
 		onChange: function () { },
 		onSubmit: function () { },
 		onCancel: function () { },
-		api: function() { }, 
+		api: function () { },
 		threshold: 200,
 		className: "",
 		placeholder: "Search",
@@ -290,9 +320,7 @@ class Reactahead extends React.Component {
 
 					</div>
 					<div className="reactahead-suggestions-wrapper">
-
 						{displaySuggestions}
-
 					</div>
 				</form>
 			</div>
